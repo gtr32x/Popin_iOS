@@ -11,11 +11,27 @@ import Alamofire
 let HOST = "https://www.realfan.xyz/api/"
 let API_GET_PROFILE = "get_profile.php"
 let API_SET_PROFILE = "set_profile.php"
+let API_UPDATE_PROFILE = "update_profile.php"
+let API_FIND_USERS = "find_users.php"
 
 class API {
+    static func findUsers(params: Dictionary<String, Any>, completion: @escaping (Dictionary<String, Any>?) -> Void){
+//        print(params)
+        self.jsonRequest(method: API_FIND_USERS, params: params) { json in
+            completion(json)
+        }
+    }
+
     static func setProfile(params: Dictionary<String, Any>, completion: @escaping (Dictionary<String, Any>?) -> Void){
 //        print(params)
         self.jsonRequest(method: API_SET_PROFILE, params: params) { json in
+            completion(json)
+        }
+    }
+    
+    static func updateProfile(params: Dictionary<String, Any>, completion: @escaping (Dictionary<String, Any>?) -> Void){
+//        print(params)
+        self.jsonRequest(method: API_UPDATE_PROFILE, params: params) { json in
             completion(json)
         }
     }

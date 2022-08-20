@@ -14,6 +14,7 @@
 		4E830F0C28B07595007788CC /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E830F0B28B07595007788CC /* API.swift */; };
 		4E830F0E28B0CC24007788CC /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E830F0D28B0CC24007788CC /* SetupViewController.swift */; };
 		4E830F1128B0D43A007788CC /* radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E830F1028B0D43A007788CC /* radar@2x.png */; };
+		4E830F1328B0F5E1007788CC /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E830F1228B0F5E1007788CC /* ListViewController.swift */; };
 		4EE95A0528B05A300037B949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE95A0428B05A300037B949 /* AppDelegate.swift */; };
 		4EE95A0728B05A300037B949 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE95A0628B05A300037B949 /* SceneDelegate.swift */; };
 		4EE95A0928B05A300037B949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE95A0828B05A300037B949 /* ViewController.swift */; };
@@ -57,7 +58,8 @@
 		4E830F0B28B07595007788CC /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		4E830F0D28B0CC24007788CC /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		4E830F1028B0D43A007788CC /* radar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radar@2x.png"; sourceTree = "<group>"; };
-		4EE95A0128B05A300037B949 /* Web3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Web3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E830F1228B0F5E1007788CC /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		4EE95A0128B05A300037B949 /* Popin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE95A0428B05A300037B949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EE95A0628B05A300037B949 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4EE95A0828B05A300037B949 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,9 +67,9 @@
 		4EE95A0D28B05A320037B949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EE95A1028B05A320037B949 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EE95A1228B05A320037B949 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EE95A1728B05A320037B949 /* Web3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Web3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EE95A1728B05A320037B949 /* PopinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE95A1B28B05A320037B949 /* Web3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3Tests.swift; sourceTree = "<group>"; };
-		4EE95A2128B05A320037B949 /* Web3UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Web3UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EE95A2128B05A320037B949 /* PopinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE95A2528B05A320037B949 /* Web3UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3UITests.swift; sourceTree = "<group>"; };
 		4EE95A2728B05A320037B949 /* Web3UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		861DD128F51272ACED5E0BC7 /* Pods-Web3Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3Tests.debug.xcconfig"; path = "Target Support Files/Pods-Web3Tests/Pods-Web3Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -149,9 +151,9 @@
 		4EE95A0228B05A300037B949 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4EE95A0128B05A300037B949 /* Web3.app */,
-				4EE95A1728B05A320037B949 /* Web3Tests.xctest */,
-				4EE95A2128B05A320037B949 /* Web3UITests.xctest */,
+				4EE95A0128B05A300037B949 /* Popin.app */,
+				4EE95A1728B05A320037B949 /* PopinTests.xctest */,
+				4EE95A2128B05A320037B949 /* PopinUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,6 +170,7 @@
 				4E2F23C528B0611F0037E2E7 /* HandshakeViewController.swift */,
 				4E2F23C428B0611F0037E2E7 /* WalletConnect.swift */,
 				4EE95A0A28B05A300037B949 /* Main.storyboard */,
+				4E830F1228B0F5E1007788CC /* ListViewController.swift */,
 				4E830F0D28B0CC24007788CC /* SetupViewController.swift */,
 				4EE95A0D28B05A320037B949 /* Assets.xcassets */,
 				4EE95A0F28B05A320037B949 /* LaunchScreen.storyboard */,
@@ -196,9 +199,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4EE95A0028B05A300037B949 /* Web3 */ = {
+		4EE95A0028B05A300037B949 /* Popin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE95A2B28B05A320037B949 /* Build configuration list for PBXNativeTarget "Web3" */;
+			buildConfigurationList = 4EE95A2B28B05A320037B949 /* Build configuration list for PBXNativeTarget "Popin" */;
 			buildPhases = (
 				2C2392E8015D933FC398E707 /* [CP] Check Pods Manifest.lock */,
 				4EE959FD28B05A300037B949 /* Sources */,
@@ -210,14 +213,14 @@
 			);
 			dependencies = (
 			);
-			name = Web3;
+			name = Popin;
 			productName = Web3;
-			productReference = 4EE95A0128B05A300037B949 /* Web3.app */;
+			productReference = 4EE95A0128B05A300037B949 /* Popin.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4EE95A1628B05A320037B949 /* Web3Tests */ = {
+		4EE95A1628B05A320037B949 /* PopinTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE95A2E28B05A320037B949 /* Build configuration list for PBXNativeTarget "Web3Tests" */;
+			buildConfigurationList = 4EE95A2E28B05A320037B949 /* Build configuration list for PBXNativeTarget "PopinTests" */;
 			buildPhases = (
 				0322857EF494E39BC0CDFAFA /* [CP] Check Pods Manifest.lock */,
 				4EE95A1328B05A320037B949 /* Sources */,
@@ -229,14 +232,14 @@
 			dependencies = (
 				4EE95A1928B05A320037B949 /* PBXTargetDependency */,
 			);
-			name = Web3Tests;
+			name = PopinTests;
 			productName = Web3Tests;
-			productReference = 4EE95A1728B05A320037B949 /* Web3Tests.xctest */;
+			productReference = 4EE95A1728B05A320037B949 /* PopinTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4EE95A2028B05A320037B949 /* Web3UITests */ = {
+		4EE95A2028B05A320037B949 /* PopinUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EE95A3128B05A320037B949 /* Build configuration list for PBXNativeTarget "Web3UITests" */;
+			buildConfigurationList = 4EE95A3128B05A320037B949 /* Build configuration list for PBXNativeTarget "PopinUITests" */;
 			buildPhases = (
 				4123D20C291A130C71B4F8B6 /* [CP] Check Pods Manifest.lock */,
 				4EE95A1D28B05A320037B949 /* Sources */,
@@ -249,9 +252,9 @@
 			dependencies = (
 				4EE95A2328B05A320037B949 /* PBXTargetDependency */,
 			);
-			name = Web3UITests;
+			name = PopinUITests;
 			productName = Web3UITests;
-			productReference = 4EE95A2128B05A320037B949 /* Web3UITests.xctest */;
+			productReference = 4EE95A2128B05A320037B949 /* PopinUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +280,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4EE959FC28B05A300037B949 /* Build configuration list for PBXProject "Web3" */;
+			buildConfigurationList = 4EE959FC28B05A300037B949 /* Build configuration list for PBXProject "Popin" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -290,9 +293,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4EE95A0028B05A300037B949 /* Web3 */,
-				4EE95A1628B05A320037B949 /* Web3Tests */,
-				4EE95A2028B05A320037B949 /* Web3UITests */,
+				4EE95A0028B05A300037B949 /* Popin */,
+				4EE95A1628B05A320037B949 /* PopinTests */,
+				4EE95A2028B05A320037B949 /* PopinUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -438,6 +441,7 @@
 				4EE95A0728B05A300037B949 /* SceneDelegate.swift in Sources */,
 				4E830F0A28B06D9C007788CC /* ProfileViewController.swift in Sources */,
 				4E830F0E28B0CC24007788CC /* SetupViewController.swift in Sources */,
+				4E830F1328B0F5E1007788CC /* ListViewController.swift in Sources */,
 				4E2F23C828B0611F0037E2E7 /* WalletConnect.swift in Sources */,
 				4E2F23C928B0611F0037E2E7 /* HandshakeViewController.swift in Sources */,
 				4E830F0C28B07595007788CC /* API.swift in Sources */,
@@ -466,12 +470,12 @@
 /* Begin PBXTargetDependency section */
 		4EE95A1928B05A320037B949 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4EE95A0028B05A300037B949 /* Web3 */;
+			target = 4EE95A0028B05A300037B949 /* Popin */;
 			targetProxy = 4EE95A1828B05A320037B949 /* PBXContainerItemProxy */;
 		};
 		4EE95A2328B05A320037B949 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4EE95A0028B05A300037B949 /* Web3 */;
+			target = 4EE95A0028B05A300037B949 /* Popin */;
 			targetProxy = 4EE95A2228B05A320037B949 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -685,7 +689,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Web3.app/Web3";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Popin.app/Popin";
 			};
 			name = Debug;
 		};
@@ -706,7 +710,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Web3.app/Web3";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Popin.app/Popin";
 			};
 			name = Release;
 		};
@@ -751,7 +755,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4EE959FC28B05A300037B949 /* Build configuration list for PBXProject "Web3" */ = {
+		4EE959FC28B05A300037B949 /* Build configuration list for PBXProject "Popin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4EE95A2928B05A320037B949 /* Debug */,
@@ -760,7 +764,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EE95A2B28B05A320037B949 /* Build configuration list for PBXNativeTarget "Web3" */ = {
+		4EE95A2B28B05A320037B949 /* Build configuration list for PBXNativeTarget "Popin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4EE95A2C28B05A320037B949 /* Debug */,
@@ -769,7 +773,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EE95A2E28B05A320037B949 /* Build configuration list for PBXNativeTarget "Web3Tests" */ = {
+		4EE95A2E28B05A320037B949 /* Build configuration list for PBXNativeTarget "PopinTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4EE95A2F28B05A320037B949 /* Debug */,
@@ -778,7 +782,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EE95A3128B05A320037B949 /* Build configuration list for PBXNativeTarget "Web3UITests" */ = {
+		4EE95A3128B05A320037B949 /* Build configuration list for PBXNativeTarget "PopinUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4EE95A3228B05A320037B949 /* Debug */,

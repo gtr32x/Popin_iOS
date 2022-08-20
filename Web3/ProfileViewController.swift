@@ -17,6 +17,8 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     var latitude: Double = 0.0
     var longitude: Double = 0.0
+    var locationUpdated = false
+    var myId: Int!
 
     static func create(walletConnect: WalletConnect) -> ProfileViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -34,13 +36,12 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
         self.determineMyCurrentLocation()
         
         API.getProfile(params: ["address": address], completion: { json in
-            if (json?["profile"] == nil){
-                API.setProfile(params: ["name": "XWarrior", "desc": "I am an avid NFT collector", "address": address, "latitude": self.latitude, "longitude": self.longitude]) { response in
-                    print("Profile set")
-                }
-            }else{
+            if (json?["profile"] != nil){
                 let profile = json?["profile"] as! Dictionary<String, Any>
 //                print(profile)
+                
+                self.myId = Int(profile["id"] as! String)
+
                 let text = UILabel()
                 text.frame = CGRect(x: 40, y: 70, width:screenSize.width - 80, height:50);
                 text.font = UIFont(name: "Avenir", size: 24)
@@ -90,8 +91,26 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                 desc.font = UIFont(name: "Avenir", size: 18)
                 desc.frame = CGRect(x: 35, y: 370, width: screenSize.width - 70, height: 60)
                 self.view.addSubview(desc)
+                
+                let findBtn = UIButton()
+                findBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: 630, width: 200, height: 50)
+                findBtn.setTitle("Find", for: UIControl.State.normal)
+                findBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
+                findBtn.backgroundColor = UIColor(rgb: 0x5599f5)
+                findBtn.layer.cornerRadius = 10
+                findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
+                self.view.addSubview(findBtn)
             }
         })
+    }
+    
+    @objc func findAction(sender: UIButton!) {
+        API.findUsers(params: ["longitude": longitude, "latitude": latitude, "distance": 10]) { json in
+            let listViewController = ListViewController.create(users: json?["users"] as! NSArray, myId: self.myId)
+            listViewController.modalPresentationStyle = .fullScreen
+            
+            self.present(listViewController, animated: false)
+        }
     }
     
     func determineMyCurrentLocation() {
@@ -127,6 +146,15 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
     {
         self.latitude = locations[0].coordinate.latitude
         self.longitude = locations[0].coordinate.longitude
+        
+        if (!locationUpdated){
+            print("updating")
+            self.locationUpdated = true;
+            let address = (session.walletInfo?.accounts[0] ?? "0x");
+            API.updateProfile(params: ["latitude": self.latitude, "longitude": self.longitude, "address": address]) { json in
+                self.locationUpdated = true;
+            }
+        }
     }
 }
 
