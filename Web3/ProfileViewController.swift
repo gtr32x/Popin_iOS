@@ -12,40 +12,48 @@ import CoreLocation
 import Kingfisher
 
 class ProfileViewController: UIViewController, CLLocationManagerDelegate {
-    var client: Client!
-    var session: Session!
+    var address: String!
     var locationManager = CLLocationManager()
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var locationUpdated = false
     var myId: Int!
+    var visit: Bool!
+    var imgurl: String!
+    var name: String!
 
-    static func create(walletConnect: WalletConnect) -> ProfileViewController {
+    static func create(address: String, visit: Bool = false) -> ProfileViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        controller.client = walletConnect.client
-        controller.session = walletConnect.session
+        controller.address = address
+        controller.visit = visit
         return controller
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.main.bounds
-        let address = (session.walletInfo?.accounts[0] ?? "0x");
         
         self.determineMyCurrentLocation()
         
-        API.getProfile(params: ["address": address], completion: { json in
+        API.getProfile(params: ["address": address as! String], completion: { json in
             if (json?["profile"] != nil){
                 let profile = json?["profile"] as! Dictionary<String, Any>
 //                print(profile)
                 
                 self.myId = Int(profile["id"] as! String)
+                self.name = profile["name"] as! String
 
                 let text = UILabel()
                 text.frame = CGRect(x: 40, y: 70, width:screenSize.width - 80, height:50);
                 text.font = UIFont(name: "Avenir", size: 24)
-                text.text = "Hello! " + (profile["name"] as! String ?? "Hacker")
+                
+                if (self.visit){
+                    text.text = (profile["name"] as! String ?? "Hacker")
+                }else{
+                    text.text = "Hello! " + (profile["name"] as! String ?? "Hacker")
+                }
+                
                 text.textAlignment = .center;
                 self.view.addSubview(text)
                 
@@ -59,6 +67,8 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                 img.frame = frame
                 
                 if let nfts = profile["nfts"] as? [Any], let nft = nfts[0] as? [String:Any], let img_url = nft["image"] as? String {
+                    self.imgurl = img_url as! String
+
                     let url = URL(string: img_url)
                     img.kf.setImage(with: url, placeholder: nil) { result in
                         switch result {
@@ -94,14 +104,47 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                 
                 let findBtn = UIButton()
                 findBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: 630, width: 200, height: 50)
-                findBtn.setTitle("Find", for: UIControl.State.normal)
+                
+                if (self.visit){
+                    findBtn.setTitle("Message", for: UIControl.State.normal)
+                }else{
+                    findBtn.setTitle("Find", for: UIControl.State.normal)
+                }
+                
                 findBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
                 findBtn.backgroundColor = UIColor(rgb: 0x5599f5)
                 findBtn.layer.cornerRadius = 10
-                findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
+                
+                if (self.visit){
+                    findBtn.addTarget(self, action: #selector(self.messageAction), for: UIControl.Event.touchUpInside)
+                }else{
+                    findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
+                }
+                
                 self.view.addSubview(findBtn)
             }
         })
+        
+        if (visit){
+            let gestureView = UIView()
+            gestureView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: 630)
+            gestureView.backgroundColor = UIColor(white: 1, alpha: 0.0)
+            self.view.addSubview(gestureView)
+            
+            let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipe(_:)))
+            swipeGestureRecognizerDown.direction = .right
+            gestureView.addGestureRecognizer(swipeGestureRecognizerDown)
+        }
+    }
+    
+    @objc private func didSwipe(_ sender: UISwipeGestureRecognizer) {
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        self.view.window!.layer.add(transition, forKey: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     @objc func findAction(sender: UIButton!) {
@@ -111,6 +154,13 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
             
             self.present(listViewController, animated: false)
         }
+    }
+    
+    @objc func messageAction(sender: UIButton!) {
+        let messageViewController = MessageViewController.create(imgurl: imgurl, name: name)
+        messageViewController.modalPresentationStyle = .fullScreen
+        
+        self.present(messageViewController, animated: false)
     }
     
     func determineMyCurrentLocation() {
@@ -147,10 +197,9 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
         self.latitude = locations[0].coordinate.latitude
         self.longitude = locations[0].coordinate.longitude
         
-        if (!locationUpdated){
+        if (!locationUpdated && !self.visit){
             print("updating")
             self.locationUpdated = true;
-            let address = (session.walletInfo?.accounts[0] ?? "0x");
             API.updateProfile(params: ["latitude": self.latitude, "longitude": self.longitude, "address": address]) { json in
                 self.locationUpdated = true;
             }

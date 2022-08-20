@@ -15,6 +15,7 @@
 		4E830F0E28B0CC24007788CC /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E830F0D28B0CC24007788CC /* SetupViewController.swift */; };
 		4E830F1128B0D43A007788CC /* radar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E830F1028B0D43A007788CC /* radar@2x.png */; };
 		4E830F1328B0F5E1007788CC /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E830F1228B0F5E1007788CC /* ListViewController.swift */; };
+		4E830F1528B10D86007788CC /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E830F1428B10D86007788CC /* MessageViewController.swift */; };
 		4EE95A0528B05A300037B949 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE95A0428B05A300037B949 /* AppDelegate.swift */; };
 		4EE95A0728B05A300037B949 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE95A0628B05A300037B949 /* SceneDelegate.swift */; };
 		4EE95A0928B05A300037B949 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE95A0828B05A300037B949 /* ViewController.swift */; };
@@ -59,6 +60,7 @@
 		4E830F0D28B0CC24007788CC /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		4E830F1028B0D43A007788CC /* radar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "radar@2x.png"; sourceTree = "<group>"; };
 		4E830F1228B0F5E1007788CC /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		4E830F1428B10D86007788CC /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		4EE95A0128B05A300037B949 /* Popin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Popin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE95A0428B05A300037B949 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EE95A0628B05A300037B949 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				4E830F0F28B0D402007788CC /* Assets */,
 				4E830F0B28B07595007788CC /* API.swift */,
 				4EE95A0428B05A300037B949 /* AppDelegate.swift */,
+				4E830F1428B10D86007788CC /* MessageViewController.swift */,
 				4EE95A0628B05A300037B949 /* SceneDelegate.swift */,
 				4EE95A0828B05A300037B949 /* ViewController.swift */,
 				4E830F0928B06D9C007788CC /* ProfileViewController.swift */,
@@ -440,6 +443,7 @@
 				4EE95A0528B05A300037B949 /* AppDelegate.swift in Sources */,
 				4EE95A0728B05A300037B949 /* SceneDelegate.swift in Sources */,
 				4E830F0A28B06D9C007788CC /* ProfileViewController.swift in Sources */,
+				4E830F1528B10D86007788CC /* MessageViewController.swift in Sources */,
 				4E830F0E28B0CC24007788CC /* SetupViewController.swift in Sources */,
 				4E830F1328B0F5E1007788CC /* ListViewController.swift in Sources */,
 				4E2F23C828B0611F0037E2E7 /* WalletConnect.swift in Sources */,

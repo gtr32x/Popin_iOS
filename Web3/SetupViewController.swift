@@ -121,7 +121,7 @@ class SetupViewController: UIViewController, UITextViewDelegate, CLLocationManag
             API.setProfile(params: ["name": (name ?? ""), "desc": (desc ?? ""), "address": (address ?? ""), "latitude": 0, "longitude": 0]) { response in
                 print("Profile set")
                 
-                let profileController = ProfileViewController.create(walletConnect: self.wallet)
+                let profileController = ProfileViewController.create(address: self.address)
                 profileController.modalPresentationStyle = .fullScreen
                 
                 self.present(profileController, animated: false)

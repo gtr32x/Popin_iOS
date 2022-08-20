@@ -75,7 +75,7 @@ class ViewController: UIViewController {
                 
                 self.present(self.setupController, animated: false)
             }else{
-                self.profileController = ProfileViewController.create(walletConnect: self.walletConnect)
+                self.profileController = ProfileViewController.create(address: address)
                 self.profileController.modalPresentationStyle = .fullScreen
                 
                 self.present(self.profileController, animated: false)

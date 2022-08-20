@@ -13,6 +13,7 @@ class ListViewController: UIViewController
 {
     var users: NSArray!
     var myId: Int!
+    var addresses: NSMutableArray!
 
     static func create(users: NSArray, myId: Int) -> ListViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -26,6 +27,8 @@ class ListViewController: UIViewController
         super .viewDidLoad()
         let screenSize: CGRect = UIScreen.main.bounds
         
+        addresses = NSMutableArray()
+        
         let title = UILabel()
         title.frame = CGRect(x: 30, y: 70, width: Int(screenSize.width - 60), height:30);
         title.font = UIFont(name: "Avenir", size: 24)
@@ -38,12 +41,15 @@ class ListViewController: UIViewController
         self.view.addSubview(scroll)
         
         var height = 10
+        var index = 0
         
         for u in users {
             if let user = u as? [String:Any] {
                 if (Int(user["id"] as! String) == myId) {
                     continue
                 }
+                
+                addresses.add(user["address"] as! String)
             }
 
             let bg = UIView()
@@ -105,7 +111,16 @@ class ListViewController: UIViewController
                 scroll.addSubview(desc)
             }
             
+            let bgBtn = UIButton()
+            bgBtn.backgroundColor = UIColor(white: 1, alpha: 0.0)
+            bgBtn.frame = CGRect(x: 20, y: height - 10, width: Int(screenSize.width - 40), height: 120)
+            bgBtn.layer.cornerRadius = 10
+            bgBtn.addTarget(self, action: #selector(visitProfile), for: UIControl.Event.touchUpInside)
+            bgBtn.tag = index
+            scroll.addSubview(bgBtn)
+            
             height += 130
+            index += 1
         }
         
         scroll.contentSize = CGSize(width: Int(screenSize.width), height: height)
@@ -113,6 +128,13 @@ class ListViewController: UIViewController
         let swipeGestureRecognizerDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipe(_:)))
         swipeGestureRecognizerDown.direction = .right
         scroll.addGestureRecognizer(swipeGestureRecognizerDown)
+    }
+    
+    @objc private func visitProfile(sender: UIButton!) {
+        let profileController = ProfileViewController.create(address: addresses[sender.tag] as! String, visit: true)
+        profileController.modalPresentationStyle = .fullScreen
+        
+        self.present(profileController, animated: false)
     }
     
     @objc private func didSwipe(_ sender: UISwipeGestureRecognizer) {
