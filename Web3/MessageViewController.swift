@@ -73,11 +73,11 @@ class MessageViewController: UIViewController, UITextViewDelegate
         let msg2Bg = UIView()
         msg2Bg.backgroundColor = UIColor(rgb: 0x333333)
         msg2Bg.layer.cornerRadius = 20
-        msg2Bg.frame = CGRect(x: 30, y: 180, width: 73, height: 40)
+        msg2Bg.frame = CGRect(x: 22, y: 180, width: 73, height: 40)
         self.view.addSubview(msg2Bg)
         
         let msg2Label = UILabel()
-        msg2Label.frame = CGRect(x: 45, y: 180, width: 60, height: 40)
+        msg2Label.frame = CGRect(x: 37, y: 180, width: 60, height: 40)
         msg2Label.text = "Same!"
         msg2Label.font = UIFont(name: "Avenir", size: 16)
         self.view.addSubview(msg2Label)
@@ -102,6 +102,14 @@ class MessageViewController: UIViewController, UITextViewDelegate
         sendBtn.setTitle("Send", for: UIControl.State.normal)
         sendBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
         self.view.addSubview(sendBtn)
+        
+        let demoLabel = UILabel()
+        demoLabel.text = "This is a mock"
+        demoLabel.font = UIFont(name: "Avenir", size: 20)
+        demoLabel.textColor = UIColor(rgb: 0x666666)
+        demoLabel.frame = CGRect(x: (screenSize.width - 200) / 2, y: (screenSize.height - 80) / 2, width: 200, height: 80)
+        demoLabel.textAlignment = .center;
+        self.view.addSubview(demoLabel)
         
         let gestureView = UIView()
         gestureView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height - 90)
