@@ -1,0 +1,6 @@
+framework module Pods_Web3Tests {
+  umbrella header "Pods-Web3Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
