@@ -102,26 +102,26 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                 desc.frame = CGRect(x: 35, y: 370, width: screenSize.width - 70, height: 60)
                 self.view.addSubview(desc)
                 
-                let findBtn = UIButton()
-                findBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: 630, width: 200, height: 50)
-                
-                if (self.visit){
-                    findBtn.setTitle("Message", for: UIControl.State.normal)
-                }else{
-                    findBtn.setTitle("Find", for: UIControl.State.normal)
-                }
-                
-                findBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
-                findBtn.backgroundColor = UIColor(rgb: 0x5599f5)
-                findBtn.layer.cornerRadius = 10
-                
-                if (self.visit){
-                    findBtn.addTarget(self, action: #selector(self.messageAction), for: UIControl.Event.touchUpInside)
-                }else{
-                    findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
-                }
-                
-                self.view.addSubview(findBtn)
+//                let findBtn = UIButton()
+//                findBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: 630, width: 200, height: 50)
+//                
+//                if (self.visit){
+//                    findBtn.setTitle("Message", for: UIControl.State.normal)
+//                }else{
+//                    findBtn.setTitle("Find", for: UIControl.State.normal)
+//                }
+//                
+//                findBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
+//                findBtn.backgroundColor = UIColor(rgb: 0x5599f5)
+//                findBtn.layer.cornerRadius = 10
+//                
+//                if (self.visit){
+//                    findBtn.addTarget(self, action: #selector(self.messageAction), for: UIControl.Event.touchUpInside)
+//                }else{
+//                    findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
+//                }
+//                
+//                self.view.addSubview(findBtn)
             }
         })
         
@@ -151,16 +151,16 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
 //        API.findUsers(params: ["longitude": longitude, "latitude": latitude, "distance": 10]) { json in
 //            let listViewController = ListViewController.create(users: json?["users"] as! NSArray, myId: self.myId)
 //            listViewController.modalPresentationStyle = .fullScreen
-//            
+//
 //            self.present(listViewController, animated: false)
 //        }
     }
     
     @objc func messageAction(sender: UIButton!) {
-        let messageViewController = MessageViewController.create(imgurl: imgurl, name: name)
-        messageViewController.modalPresentationStyle = .fullScreen
-        
-        self.present(messageViewController, animated: false)
+//        let messageViewController = MessageViewController.create(imgurl: imgurl, name: name)
+//        messageViewController.modalPresentationStyle = .fullScreen
+//
+//        self.present(messageViewController, animated: false)
     }
     
     func determineMyCurrentLocation() {

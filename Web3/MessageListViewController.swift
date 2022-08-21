@@ -13,6 +13,7 @@ class MessageListViewController: UIViewController
     var img_urls: NSArray!
     var names: NSArray!
     var prevVC: UIViewController?
+    var addresses: NSArray!
 
     static func create(vc: UIViewController? = nil) -> MessageListViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -41,6 +42,7 @@ class MessageListViewController: UIViewController
         
         img_urls = ["https://ipfs.io/ipfs/QmQoXi61Gyfhx3N6C6K8ukze8VHmoeAgVooRhzSa5fj11n", "https://ipfs.io/ipfs/QmNf1UsmdGaMbpatQ6toXSkzDpizaGmC9zfunCyoz1enD5/penguin/3958.png"]
         names = ["BulletTime", "MooVault"]
+        addresses = ["0x67AC6F6b7aFf56683620a8378a6fbEb04AEcF1d6", "0x49Ac01958BCEb1CDFF62c3e9f9f76D17fB2294b4"]
         let lastMsgs = ["It was great meeting you!", "I went to Eth Mexico"]
         
         for i in 0...1 {
@@ -124,7 +126,7 @@ class MessageListViewController: UIViewController
     
     @objc func goToChat(sender: UIButton) {
         let i = sender.tag
-        let messageViewController = MessageViewController.create(imgurl: img_urls[i] as! String, name: names[i] as! String)
+        let messageViewController = MessageViewController.create(imgurl: img_urls[i] as! String, name: names[i] as! String, address: addresses[i] as! String)
         messageViewController.modalPresentationStyle = .fullScreen
         
         self.present(messageViewController, animated: false)

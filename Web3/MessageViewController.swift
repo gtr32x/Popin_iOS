@@ -13,12 +13,14 @@ class MessageViewController: UIViewController, UITextViewDelegate
 {
     var imgurl: String!
     var name: String!
+    var address: String!
 
-    static func create(imgurl: String, name: String) -> MessageViewController {
+    static func create(imgurl: String, name: String, address: String) -> MessageViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyboard.instantiateViewController(withIdentifier: "MessageViewController") as! MessageViewController
         controller.imgurl = imgurl
         controller.name = name
+        controller.address = address
         return controller
     }
     
@@ -47,10 +49,16 @@ class MessageViewController: UIViewController, UITextViewDelegate
 
                     img.layer.cornerRadius = 10
                     img.clipsToBounds = true
+
                 case .failure(let error):
                     print("Job failed: \(error.localizedDescription)")
                 }
         }
+        
+        let profileBtn = UIButton()
+        profileBtn.frame = CGRect(x: 20, y: 70, width: 40, height: 40)
+        profileBtn.addTarget(self, action: #selector(profileAction), for: UIControl.Event.touchUpInside)
+        self.view.addSubview(profileBtn)
         
         let nameLabel = UILabel()
         nameLabel.frame = CGRect(x: 80, y: 75, width:150, height:30);
@@ -102,7 +110,7 @@ class MessageViewController: UIViewController, UITextViewDelegate
         sendBtn.setTitle("Send", for: UIControl.State.normal)
         sendBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
         self.view.addSubview(sendBtn)
-//        
+//
 //        let demoLabel = UILabel()
 //        demoLabel.text = "This is a mock"
 //        demoLabel.font = UIFont(name: "Avenir", size: 20)
@@ -112,7 +120,7 @@ class MessageViewController: UIViewController, UITextViewDelegate
 //        self.view.addSubview(demoLabel)
         
         let gestureView = UIView()
-        gestureView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height - 90)
+        gestureView.frame = CGRect(x: 0, y: 100, width: screenSize.width, height: screenSize.height - 190)
         gestureView.backgroundColor = UIColor(white: 1, alpha: 0.0)
         self.view.addSubview(gestureView)
         
@@ -129,6 +137,14 @@ class MessageViewController: UIViewController, UITextViewDelegate
         transition.subtype = CATransitionSubtype.fromLeft
         self.view.window!.layer.add(transition, forKey: nil)
         self.dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func profileAction(sender: UIButton) {
+        print("huh")
+        let profileVC = ProfileViewController.create(address: address, visit: true)
+        profileVC.modalPresentationStyle = .fullScreen
+        
+        self.present(profileVC, animated: false)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

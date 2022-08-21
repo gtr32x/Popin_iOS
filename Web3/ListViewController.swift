@@ -26,6 +26,8 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
     var locationUpdated = false
     var refreshControl: UIRefreshControl!
     var scroll: UIScrollView!
+    var img_urls: NSMutableArray!
+    var names: NSMutableArray!
 
     static func create(address: String, myId: Int, imgurl: String) -> ListViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -42,6 +44,8 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
 
         let screenSize: CGRect = UIScreen.main.bounds
         addresses = NSMutableArray()
+        img_urls = NSMutableArray()
+        names = NSMutableArray()
 
         let title = UILabel()
         title.frame = CGRect(x: 30, y: 70, width: Int(screenSize.width - 60), height:30);
@@ -78,6 +82,8 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
             scroll.addSubview(img)
 
             if let user = u as? [String:Any], let nfts = user["nfts"] as? [Any], let nft = nfts[0] as? [String:Any], let img_url = nft["image"] as? String {
+                img_urls[index] = img_url
+
                 let url = URL(string: img_url)
                 img.kf.setImage(with: url, placeholder: nil) { result in
                     switch result {
@@ -105,6 +111,8 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
                 name.font = UIFont(name: "Avenir", size: 18)
                 name.text = (user["name"] as! String)
                 scroll.addSubview(name)
+                
+                names[index] = (user["name"] as! String)
 
                 let distance = Double(user["distance"] as! String)
 
@@ -269,10 +277,10 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
     }
     
     @objc private func visitProfile(sender: UIButton!) {
-        let profileController = ProfileViewController.create(address: addresses[sender.tag] as! String, visit: true)
-        profileController.modalPresentationStyle = .fullScreen
+        let messageVC = MessageViewController.create(imgurl:img_urls[sender.tag] as! String, name: names[sender.tag] as! String, address: addresses[sender.tag] as! String)
+        messageVC.modalPresentationStyle = .fullScreen
         
-        self.present(profileController, animated: false)
+        self.present(messageVC, animated: false)
     }
     
     @objc private func didSwipe(_ sender: UISwipeGestureRecognizer) {
