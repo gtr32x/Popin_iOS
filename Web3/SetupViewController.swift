@@ -37,51 +37,58 @@ class SetupViewController: UIViewController, UITextViewDelegate, CLLocationManag
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor(rgb: 0x14171f)
+        
         address = (wallet.session.walletInfo?.accounts[0] ?? "0x");
         let screenSize: CGRect = UIScreen.main.bounds
         
-        let title = UILabel()
-        title.frame = CGRect(x: 40, y: 70, width:screenSize.width - 80, height:50);
-        title.font = UIFont(name: "Avenir", size: 24)
-        title.text = "Setup Your Profile"
-        title.textAlignment = .center;
-        self.view.addSubview(title)
+//        let title = UILabel()
+//        title.frame = CGRect(x: 40, y: 70, width:screenSize.width - 80, height:50);
+//        title.font = UIFont.systemFont(ofSize: 24)
+//        title.text = "Setup Your Profile"
+//        title.textAlignment = .center;
+//        self.view.addSubview(title)
+        
+        let imgv = UIImageView()
+        imgv.image = UIImage(named: "profile_placeholder")
+        imgv.frame = CGRect(x: (screenSize.width - 150) / 2, y: 92, width: 150, height: 150)
+        self.view.addSubview(imgv)
         
         nameLabel.text = "Display Name"
-        nameLabel.font = UIFont(name: "Avenir", size: 20)
-        nameLabel.frame = CGRect(x: 40, y: 170, width: screenSize.width - 80, height: 30)
+        nameLabel.font = UIFont.systemFont(ofSize: 14)
+        nameLabel.frame = CGRect(x: 40, y: 245, width: screenSize.width - 80, height: 30)
         self.view.addSubview(nameLabel)
         
-        nameBg.backgroundColor = UIColor(rgb: 0x222222)
-        nameBg.frame = CGRect(x: 40, y: 230, width: screenSize.width - 80, height: 60)
+        nameBg.backgroundColor = UIColor(rgb: 0x292c33)
+        nameBg.frame = CGRect(x: 40, y: 280, width: screenSize.width - 80, height: 50)
         nameBg.layer.cornerRadius = 10
         self.view.addSubview(nameBg)
         
-        nameField.frame = CGRect(x: 55, y: 235, width: screenSize.width - 110, height: 50)
-        nameField.font = UIFont(name: "Avenir", size: 20)
+        nameField.frame = CGRect(x: 50, y: 285, width: screenSize.width - 100, height: 40)
+        nameField.font = UIFont.systemFont(ofSize: 16)
         self.view.addSubview(nameField)
         
         descLabel.text = "Description"
-        descLabel.font = UIFont(name: "Avenir", size: 20)
-        descLabel.frame = CGRect(x: 40, y: 330, width: screenSize.width - 80, height: 30)
+        descLabel.font = UIFont.systemFont(ofSize: 14)
+        descLabel.frame = CGRect(x: 40, y: 355, width: screenSize.width - 80, height: 30)
         self.view.addSubview(descLabel)
         
-        descBg.backgroundColor = UIColor(rgb: 0x222222)
+        descBg.backgroundColor = UIColor(rgb: 0x292c33)
         descBg.frame = CGRect(x: 40, y: 390, width: screenSize.width - 80, height: 160)
         descBg.layer.cornerRadius = 10
         self.view.addSubview(descBg)
         
-        descField.frame = CGRect(x: 50, y: 395, width: screenSize.width - 100, height: 150)
-        descField.font = UIFont(name: "Avenir", size: 20)
-        descField.backgroundColor = UIColor(rgb: 0x222222)
+        descField.frame = CGRect(x: 47, y: 395, width: screenSize.width - 94, height: 120)
+        descField.font = UIFont.systemFont(ofSize: 16)
+        descField.backgroundColor = UIColor(rgb: 0x292c33)
         descField.delegate = self
         self.view.addSubview(descField)
         
-        nextBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: 630, width: 200, height: 50)
-        nextBtn.setTitle("Next", for: UIControl.State.normal)
-        nextBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
-        nextBtn.backgroundColor = UIColor(rgb: 0x5599f5)
-        nextBtn.layer.cornerRadius = 10
+        nextBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: screenSize.height - 150, width: 200, height: 45)
+        nextBtn.setTitle("Allow Location", for: UIControl.State.normal)
+        nextBtn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        nextBtn.backgroundColor = UIColor(rgb: 0x7ec893)
+        nextBtn.layer.cornerRadius = 22.5
         nextBtn.addTarget(self, action: #selector(nextAction), for: UIControl.Event.touchUpInside)
         self.view.addSubview(nextBtn)
     }
@@ -96,28 +103,14 @@ class SetupViewController: UIViewController, UITextViewDelegate, CLLocationManag
     
     @objc func nextAction(sender: UIButton!) {
         if (step == 0){
-            name = nameField.text
-            desc = descField.text
-            
-            nameLabel.removeFromSuperview()
-            nameField.removeFromSuperview()
-            nameBg.removeFromSuperview()
-            descLabel.removeFromSuperview()
-            descField.removeFromSuperview()
-            descBg.removeFromSuperview()
-            
             nextBtn.setTitle("Create Profile", for: UIControl.State.normal)
-            
-            let screenSize: CGRect = UIScreen.main.bounds
-            
-            let radar = UIImageView()
-            radar.frame = CGRect(x: (screenSize.width - 360) / 2, y: 180, width: 360, height: 360)
-            radar.image = UIImage(named: "radar")!
-            self.view.addSubview(radar)
             
             self.determineMyCurrentLocation()
             step += 1
         }else{
+            name = nameField.text
+            desc = descField.text
+
             API.setProfile(params: ["name": (name ?? ""), "desc": (desc ?? ""), "address": (address ?? ""), "latitude": 0, "longitude": 0]) { response in
                 print("Profile set")
                 

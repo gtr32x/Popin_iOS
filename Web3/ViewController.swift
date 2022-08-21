@@ -21,18 +21,22 @@ class ViewController: UIViewController {
         let screenSize: CGRect = UIScreen.main.bounds
         walletConnect = WalletConnect(delegate: self)
         
-        connectBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: (screenSize.height - 50) / 2, width: 200, height: 50)
-        connectBtn.setTitle("Connect Wallet", for: UIControl.State.normal)
-        connectBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
-        connectBtn.backgroundColor = UIColor(rgb: 0x5599f5)
-        connectBtn.layer.cornerRadius = 10
+        self.view.backgroundColor = UIColor(rgb: 0x14171f)
+        
+        connectBtn.frame = CGRect(x: (screenSize.width - 150) / 2, y: (screenSize.height - 150) / 2, width: 150, height: 150)
+        connectBtn.setTitle("Connect\nWallet", for: UIControl.State.normal)
+        connectBtn.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        connectBtn.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        connectBtn.titleLabel?.textAlignment = .center
+        connectBtn.backgroundColor = UIColor(rgb: 0x7ec893)
+        connectBtn.layer.cornerRadius = 75
         connectBtn.addTarget(self, action: #selector(pressed), for: UIControl.Event.touchUpInside)
         
         self.view.addSubview(connectBtn)
         
         connectLabel.frame = CGRect(x: (screenSize.width - 200) / 2, y: (screenSize.height - 50) / 2, width: 200, height: 50)
         connectLabel.text = "Connecting..."
-        connectLabel.font = UIFont(name: "Avenir", size: 20)
+        connectLabel.font = UIFont.systemFont(ofSize: 20)
         connectLabel.textAlignment = .center
         
         walletConnect.reconnectIfNeeded(vc: self)

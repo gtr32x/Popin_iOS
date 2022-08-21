@@ -34,6 +34,8 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         let screenSize: CGRect = UIScreen.main.bounds
         
+        self.view.backgroundColor = UIColor(rgb: 0x14171f)
+        
         self.determineMyCurrentLocation()
         
         API.getProfile(params: ["address": address as! String], completion: { json in
@@ -45,13 +47,13 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                 self.name = profile["name"] as! String
 
                 let text = UILabel()
-                text.frame = CGRect(x: 40, y: 70, width:screenSize.width - 80, height:50);
-                text.font = UIFont(name: "Avenir", size: 24)
+                text.frame = CGRect(x: 40, y: 260, width:screenSize.width - 80, height:50);
+                text.font = UIFont.systemFont(ofSize: 24)
                 
                 if (self.visit){
                     text.text = (profile["name"] as! String ?? "Hacker")
                 }else{
-                    text.text = "Hello! " + (profile["name"] as! String ?? "Hacker")
+                    text.text = "Welcome! " + (profile["name"] as! String ?? "Hacker")
                 }
                 
                 text.textAlignment = .center;
@@ -59,11 +61,10 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                 
                 let img = UIImageView()
                 img.translatesAutoresizingMaskIntoConstraints = false
-                img.frame = CGRect(x: 40, y: 140, width: screenSize.width - 80, height: 200)
+                img.frame = CGRect(x: (screenSize.width - 150) / 2, y: 92, width: 150, height: 150)
                 self.view.addSubview(img)
                 
                 var frame = img.frame
-                frame.origin.y = 140
                 img.frame = frame
                 
                 if let nfts = profile["nfts"] as? [Any], let nft = nfts[0] as? [String:Any], let img_url = nft["image"] as? String {
@@ -74,7 +75,7 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                         switch result {
                             case .success(let value):
                                 let size = value.image.size
-                                let factor = 200 / size.height
+                                let factor = 150 / size.height
                                 let width = size.width * factor
                                 
                                 var frame = img.frame
@@ -82,7 +83,7 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                                 frame.origin.x = (screenSize.width - width) / 2
                                 img.frame = frame
                             
-                                img.layer.cornerRadius = 20
+                                img.layer.cornerRadius = 75
                                 img.clipsToBounds = true
                             case .failure(let error):
                                 print("Job failed: \(error.localizedDescription)")
@@ -90,38 +91,31 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
                     }
                 }
                 
-                let descBg = UIView()
-                descBg.frame = CGRect(x: 20, y: 370, width: screenSize.width - 40, height: 60)
-                descBg.backgroundColor = UIColor(rgb: 0x222222)
-                descBg.layer.cornerRadius = 10
-                self.view.addSubview(descBg)
+//                let descBg = UIView()
+//                descBg.frame = CGRect(x: 20, y: 300, width: screenSize.width - 40, height: 60)
+//                descBg.backgroundColor = UIColor(rgb: 0x222222)
+//                descBg.layer.cornerRadius = 10
+//                self.view.addSubview(descBg)
                 
                 let desc = UILabel()
                 desc.text = (profile["desc"] as! String ?? "This is how I would like to intro myself...")
-                desc.font = UIFont(name: "Avenir", size: 18)
-                desc.frame = CGRect(x: 35, y: 370, width: screenSize.width - 70, height: 60)
+                desc.font = UIFont.systemFont(ofSize: 16)
+                desc.frame = CGRect(x: 35, y: 300, width: screenSize.width - 70, height: 60)
                 self.view.addSubview(desc)
                 
-//                let findBtn = UIButton()
-//                findBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: 630, width: 200, height: 50)
-//                
-//                if (self.visit){
-//                    findBtn.setTitle("Message", for: UIControl.State.normal)
-//                }else{
-//                    findBtn.setTitle("Find", for: UIControl.State.normal)
-//                }
-//                
-//                findBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
-//                findBtn.backgroundColor = UIColor(rgb: 0x5599f5)
-//                findBtn.layer.cornerRadius = 10
-//                
-//                if (self.visit){
-//                    findBtn.addTarget(self, action: #selector(self.messageAction), for: UIControl.Event.touchUpInside)
-//                }else{
-//                    findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
-//                }
-//                
-//                self.view.addSubview(findBtn)
+                if (!self.visit){
+                    let findBtn = UIButton()
+                    findBtn.frame = CGRect(x: (screenSize.width - 200) / 2, y: screenSize.height - 150, width: 200, height: 45)
+                    findBtn.setTitle("Discover", for: UIControl.State.normal)
+
+                    findBtn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+                    findBtn.backgroundColor = UIColor(rgb: 0x7ec893)
+                    findBtn.layer.cornerRadius = 22.5
+
+                    findBtn.addTarget(self, action: #selector(self.findAction), for: UIControl.Event.touchUpInside)
+
+                    self.view.addSubview(findBtn)
+                }
             }
         })
         
@@ -148,12 +142,10 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func findAction(sender: UIButton!) {
-//        API.findUsers(params: ["longitude": longitude, "latitude": latitude, "distance": 10]) { json in
-//            let listViewController = ListViewController.create(users: json?["users"] as! NSArray, myId: self.myId)
-//            listViewController.modalPresentationStyle = .fullScreen
-//
-//            self.present(listViewController, animated: false)
-//        }
+        let listViewController = ListViewController.create(address: address, myId: self.myId, imgurl: imgurl)
+        listViewController.modalPresentationStyle = .fullScreen
+
+        self.present(listViewController, animated: false)
     }
     
     @objc func messageAction(sender: UIButton!) {
@@ -222,25 +214,3 @@ extension String {
         return ceil(boundingBox.width)
     }
 }
-
-//class ResizableImageView: UIImageView {
-//
-//  override var image: UIImage? {
-//    didSet {
-//      guard let image = image else { return }
-//
-//        let maxHeight = 200.0
-//        let factor = maxHeight / image.size.height
-//
-//
-//      let resizeConstraints = [
-//        self.heightAnchor.constraint(equalToConstant: image.size.height * factor),
-//        self.widthAnchor.constraint(equalToConstant: image.size.width * factor)
-//      ]
-//
-//      if superview != nil {
-//        addConstraints(resizeConstraints)
-//      }
-//    }
-//  }
-//}

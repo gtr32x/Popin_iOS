@@ -49,8 +49,8 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
 
         let title = UILabel()
         title.frame = CGRect(x: 30, y: 70, width: Int(screenSize.width - 60), height:30);
-        title.font = UIFont(name: "Avenir", size: 24)
-        title.text = "Users Near You"
+        title.font = UIFont.systemFont(ofSize: 24)
+        title.text = "Frens Near You"
         title.textAlignment = .center
         self.view.addSubview(title)
 
@@ -71,14 +71,14 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
             }
 
             let bg = UIView()
-            bg.backgroundColor = UIColor(rgb: 0x222222)
-            bg.frame = CGRect(x: 20, y: height - 10, width: Int(screenSize.width - 40), height: 120)
+            bg.backgroundColor = UIColor(rgb: 0x292c33)
+            bg.frame = CGRect(x: 20, y: height - 10, width: Int(screenSize.width - 40), height: 130)
             bg.layer.cornerRadius = 10
             scroll.addSubview(bg)
 
             let img = UIImageView()
             img.translatesAutoresizingMaskIntoConstraints = false
-            img.frame = CGRect(x: 30, y: height, width: 100, height: 100)
+            img.frame = CGRect(x: 40, y: height + 25, width: 80, height: 80)
             scroll.addSubview(img)
 
             if let user = u as? [String:Any], let nfts = user["nfts"] as? [Any], let nft = nfts[0] as? [String:Any], let img_url = nft["image"] as? String {
@@ -89,15 +89,15 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
                     switch result {
                         case .success(let value):
                             let size = value.image.size
-                            let factor = 100 / size.height
+                            let factor = 80 / size.height
                             let width = size.width * factor
 
                             var frame = img.frame
                             frame.size.width = width
-                            frame.origin.x = (100 - width) / 2 + 30
+                            frame.origin.x = (80 - width) / 2 + 40
                             img.frame = frame
 
-                            img.layer.cornerRadius = 10
+                            img.layer.cornerRadius = 40
                             img.clipsToBounds = true
                         case .failure(let error):
                             print("Job failed: \(error.localizedDescription)")
@@ -108,29 +108,44 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
             if let user = u as? [String:Any]{
                 let name = UILabel()
                 name.frame = CGRect(x: 150, y: height + 5, width:100, height:30);
-                name.font = UIFont(name: "Avenir", size: 18)
+                name.font = UIFont.systemFont(ofSize: 18)
                 name.text = (user["name"] as! String)
                 scroll.addSubview(name)
                 
                 names[index] = (user["name"] as! String)
+                
+                let icon = UIImageView()
+                icon.image = UIImage(named: "icon_droppin")
+                icon.frame = CGRect(x: 35, y: height, width: 14, height: 14)
+                scroll.addSubview(icon)
 
                 let distance = Double(user["distance"] as! String)
 
                 let distanceLabel = UILabel()
-                distanceLabel.frame = CGRect(x: Int(screenSize.width - 140), y: height + 5, width:100, height:30);
-                distanceLabel.font = UIFont(name: "Avenir", size: 16)
+                distanceLabel.frame = CGRect(x: 55, y: height - 8, width:100, height:30);
+                distanceLabel.font = UIFont.systemFont(ofSize: 14)
                 distanceLabel.text = String(format: "%.1f", distance!) + " Miles"
-                distanceLabel.textAlignment = .right
                 scroll.addSubview(distanceLabel)
 
                 let desc = UITextView()
-                desc.frame = CGRect(x: 145, y: height + 35, width:Int(screenSize.width - 180), height:60);
-                desc.font = UIFont(name: "Avenir", size: 14)
+                desc.frame = CGRect(x: 145, y: height + 35, width:Int(screenSize.width - 180), height:26);
+                desc.font = UIFont.systemFont(ofSize: 14)
                 desc.text = (user["desc"] as! String)
                 desc.isEditable = false
                 desc.isSelectable = false
-                desc.backgroundColor = UIColor(rgb: 0x222222)
+                desc.backgroundColor = UIColor(rgb: 0x292c33)
                 scroll.addSubview(desc)
+                
+                let chatIcon = UIView()
+                chatIcon.backgroundColor = UIColor(rgb: 0x7ec893)
+                chatIcon.frame = CGRect(x: 150, y: height + 75, width: 50, height: 28)
+                chatIcon.layer.cornerRadius = 14
+                scroll.addSubview(chatIcon)
+                
+                let chatBubble = UIImageView()
+                chatBubble.image = UIImage(named: "icon_chat")
+                chatBubble.frame = CGRect(x: 165, y: height + 79, width: 20, height: 20)
+                scroll.addSubview(chatBubble)
             }
 
             let bgBtn = UIButton()
@@ -141,7 +156,7 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
             bgBtn.tag = index
             scroll.addSubview(bgBtn)
 
-            height += 130
+            height += 140
             index += 1
         }
 
@@ -158,23 +173,56 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
         
         let navView = UIView()
         navView.frame = CGRect(x: 0, y: screenSize.height - 80, width: screenSize.width, height: 80)
-        navView.backgroundColor = UIColor(rgb: 0x211427)
+        navView.backgroundColor = UIColor(rgb: 0x292c33)
         self.view.addSubview(navView)
         
+        let discoverImage = UIImageView()
+        discoverImage.image = UIImage(named: "icon_find")
+        discoverImage.frame = CGRect(x: 55, y: 10, width: 30, height: 30)
+        navView.addSubview(discoverImage)
+        
+        let discoverText = UILabel()
+        discoverText.text = "Discover"
+        discoverText.font = UIFont.systemFont(ofSize: 11)
+        discoverText.frame = CGRect(x: 40, y: 40, width: 60, height: 20)
+        discoverText.textAlignment = .center
+        navView.addSubview(discoverText)
+        
         let discoverBtn = UIButton()
-        discoverBtn.setImage(UIImage(named: "icon_globe.png"), for: UIControl.State.normal)
         discoverBtn.frame = CGRect(x: 50, y: 15, width: 40, height: 40)
         discoverBtn.addTarget(self, action: #selector(discover), for: UIControl.Event.touchUpInside)
         navView.addSubview(discoverBtn)
         
+        let messageImage = UIImageView()
+        messageImage.image = UIImage(named: "icon_chat")
+        messageImage.frame = CGRect(x: (screenSize.width - 40) / 2 + 5, y: 8, width: 30, height: 30)
+        navView.addSubview(messageImage)
+        
+        let messageText = UILabel()
+        messageText.text = "Chat"
+        messageText.font = UIFont.systemFont(ofSize: 11)
+        messageText.frame = CGRect(x: (screenSize.width - 40) / 2 - 10, y: 40, width: 60, height: 20)
+        messageText.textAlignment = .center
+        navView.addSubview(messageText)
+        
         let messageBtn = UIButton()
-        messageBtn.setImage(UIImage(named: "icon_chat.png"), for: UIControl.State.normal)
         messageBtn.frame = CGRect(x: (screenSize.width - 40) / 2, y: 15, width: 40, height: 40)
         messageBtn.addTarget(self, action: #selector(chatlist), for: UIControl.Event.touchUpInside)
         navView.addSubview(messageBtn)
         
+        let settingImage = UIImageView()
+        settingImage.image = UIImage(named: "icon_gear")
+        settingImage.frame = CGRect(x: (screenSize.width - 90) + 5, y: 8, width: 30, height: 30)
+        navView.addSubview(settingImage)
+        
+        let settingText = UILabel()
+        settingText.text = "Setting"
+        settingText.font = UIFont.systemFont(ofSize: 11)
+        settingText.frame = CGRect(x: (screenSize.width - 90) - 10, y: 40, width: 60, height: 20)
+        settingText.textAlignment = .center
+        navView.addSubview(settingText)
+        
         let settingBtn = UIButton()
-        settingBtn.setImage(UIImage(named: "icon_gear.png"), for: UIControl.State.normal)
         settingBtn.frame = CGRect(x: screenSize.width - 90, y: 15, width: 40, height: 40)
         settingBtn.addTarget(self, action: #selector(settings), for: UIControl.Event.touchUpInside)
         navView.addSubview(settingBtn)
@@ -224,6 +272,8 @@ class ListViewController: UIViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super .viewDidLoad()
         let screenSize: CGRect = UIScreen.main.bounds
+        
+        self.view.backgroundColor = UIColor(rgb: 0x14171f)
         
         circleBg = UIView()
         circleBg.backgroundColor = UIColor(rgb:0x222222)
