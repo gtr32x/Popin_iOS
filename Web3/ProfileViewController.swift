@@ -148,12 +148,12 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func findAction(sender: UIButton!) {
-        API.findUsers(params: ["longitude": longitude, "latitude": latitude, "distance": 10]) { json in
-            let listViewController = ListViewController.create(users: json?["users"] as! NSArray, myId: self.myId)
-            listViewController.modalPresentationStyle = .fullScreen
-            
-            self.present(listViewController, animated: false)
-        }
+//        API.findUsers(params: ["longitude": longitude, "latitude": latitude, "distance": 10]) { json in
+//            let listViewController = ListViewController.create(users: json?["users"] as! NSArray, myId: self.myId)
+//            listViewController.modalPresentationStyle = .fullScreen
+//            
+//            self.present(listViewController, animated: false)
+//        }
     }
     
     @objc func messageAction(sender: UIButton!) {
@@ -200,7 +200,7 @@ class ProfileViewController: UIViewController, CLLocationManagerDelegate {
         if (!locationUpdated && !self.visit){
             print("updating")
             self.locationUpdated = true;
-            API.updateProfile(params: ["latitude": self.latitude, "longitude": self.longitude, "address": address]) { json in
+            API.updateProfile(params: ["latitude": self.latitude, "longitude": self.longitude, "address": address as! String]) { json in
                 self.locationUpdated = true;
             }
         }

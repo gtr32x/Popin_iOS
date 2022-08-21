@@ -102,14 +102,14 @@ class MessageViewController: UIViewController, UITextViewDelegate
         sendBtn.setTitle("Send", for: UIControl.State.normal)
         sendBtn.titleLabel?.font = UIFont(name: "Avenir", size: 20)
         self.view.addSubview(sendBtn)
-        
-        let demoLabel = UILabel()
-        demoLabel.text = "This is a mock"
-        demoLabel.font = UIFont(name: "Avenir", size: 20)
-        demoLabel.textColor = UIColor(rgb: 0x666666)
-        demoLabel.frame = CGRect(x: (screenSize.width - 200) / 2, y: (screenSize.height - 80) / 2, width: 200, height: 80)
-        demoLabel.textAlignment = .center;
-        self.view.addSubview(demoLabel)
+//        
+//        let demoLabel = UILabel()
+//        demoLabel.text = "This is a mock"
+//        demoLabel.font = UIFont(name: "Avenir", size: 20)
+//        demoLabel.textColor = UIColor(rgb: 0x666666)
+//        demoLabel.frame = CGRect(x: (screenSize.width - 200) / 2, y: (screenSize.height - 80) / 2, width: 200, height: 80)
+//        demoLabel.textAlignment = .center;
+//        self.view.addSubview(demoLabel)
         
         let gestureView = UIView()
         gestureView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height - 90)

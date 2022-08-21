@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     var handshakeController: HandshakeViewController!
     var profileController: ProfileViewController!
+    var listController: ListViewController!
     var setupController: SetupViewController!
     var walletConnect: WalletConnect!
     var connectBtn: UIButton = UIButton()
@@ -75,10 +76,13 @@ class ViewController: UIViewController {
                 
                 self.present(self.setupController, animated: false)
             }else{
-                self.profileController = ProfileViewController.create(address: address)
-                self.profileController.modalPresentationStyle = .fullScreen
-                
-                self.present(self.profileController, animated: false)
+                let profile = json?["profile"] as! Dictionary<String, Any>
+                if let nfts = profile["nfts"] as? [Any], let nft = nfts[0] as? [String:Any], let img_url = nft["image"] as? String {
+                    self.listController = ListViewController.create(address: address, myId: Int(profile["id"] as! String)!, imgurl: img_url)
+                    self.listController.modalPresentationStyle = .fullScreen
+                    
+                    self.present(self.listController, animated: false)
+                }
             }
         })
     }
